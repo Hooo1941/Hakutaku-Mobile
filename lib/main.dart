@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+
 import 'readcard.dart';
-import 'writecard.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,15 +37,6 @@ class _IndexState extends State<Index> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ReadCardPage()),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('写卡片'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WriteCardPage()),
                 );
               },
             ),

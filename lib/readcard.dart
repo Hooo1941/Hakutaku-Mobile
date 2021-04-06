@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mifare_nfc_classic/mifare_nfc_classic.dart';
+
 import 'utils.dart';
 
 class ReadCardPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ReadCardPageState extends State<ReadCardPage> {
         child: TextButton(
           onPressed: () async {
             final message = await MifareNfcClassic.readBlock(
-              blockIndex: 4,
+              blockIndex: 0,
             );
             await showToast(message: message);
           },
