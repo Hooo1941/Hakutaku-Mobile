@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'readcard.dart';
-import 'qrcode.dart';
 import 'login.dart';
 void main() {
   runApp(MyApp());
@@ -31,24 +29,6 @@ class _IndexState extends State<Index> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              child: Text('读卡片'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReadCardPage()),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('扫码'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ScanPage()),
-                );
-              },
-            ),
             ElevatedButton(
               child: Text('登录'),
               onPressed: () {

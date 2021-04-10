@@ -3,6 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mifare_nfc_classic/mifare_nfc_classic.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+// String frontURL = "http://baize.dev.builds.ninja";
+// String backURL = "http://baize.dev.builds.ninja:7070";
+String frontURL = "http://10.133.216.38:8080";
+String backURL = "http://10.133.216.38:7070";
+
 Future<List<int>> buildInitialAlert(BuildContext context) async {
   final listInfo = <int>[];
   final _alert = Alert(
@@ -16,14 +21,6 @@ Future<List<int>> buildInitialAlert(BuildContext context) async {
   listInfo.add(await MifareNfcClassic.blockCount);
   _alert.dismiss();
   return listInfo;
-}
-
-List<int> generateSectorList(int size) {
-  return [for (var i = 0; i < size; i += 1) i];
-}
-
-List<int> generateBlockList(int sector, int size) {
-  return [for (var i = sector * 4; i < (sector * 4) + 4; i += 1) i];
 }
 
 Future<void> showToast({@required String message}) async {

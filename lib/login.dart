@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'utils.dart';
-import 'qrcode.dart';
+import 'manage.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: WebView(
-        initialUrl: 'http://10.132.10.184:8080/phone',
+        initialUrl: frontURL,
         javascriptMode: JavascriptMode.unrestricted,
         // javascriptChannels: [
         //   JavascriptChannel(
@@ -20,10 +20,10 @@ class LoginPage extends StatelessWidget {
         //   ].toSet(),
         navigationDelegate: (NavigationRequest request) {
           // 拦截请求
-          if (request.url.contains('phonesuccess')) {
-            showToast(message: request.url);
+          if (request.url.contains('manage')) {
+            showToast(message: request.url.replaceFirst(frontURL+"/manage/#/", ""));
             Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-              return ScanPage();
+              return ManagePage();
             }));
             return NavigationDecision.prevent;
           }

@@ -18,14 +18,19 @@ class _ReadCardPageState extends State<ReadCardPage> {
         title: const Text('读取设备'),
       ),
       body: Center(
-        child: TextButton(
-          onPressed: () async {
-            final message = await MifareNfcClassic.readBlock(
-              blockIndex: 0,
-            );
-            await showToast(message: message);
-          },
-          child: Text('点击读取设备'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () async {
+                final message = await MifareNfcClassic.readBlock(
+                  blockIndex: 0,
+                );
+                await showToast(message: message);
+              },
+              child: Text('点击读取设备'),
+            ),
+          ],
         ),
       ),
     );
