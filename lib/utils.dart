@@ -3,10 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mifare_nfc_classic/mifare_nfc_classic.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-String frontURL = "http://baize.dev.builds.ninja";
-String backURL = "http://baize.dev.builds.ninja:7070";
-// String frontURL = "http://10.133.216.38:8080";
-// String backURL = "http://10.133.216.38:7070";
+const String FrontendURL = "http://baize.dev.builds.ninja";
+const String BackendURL = "http://baize.dev.builds.ninja:7070";
+const String LoginURL = BackendURL + "/api/v1/sso/login";
 
 Future<List<int>> buildInitialAlert(BuildContext context) async {
   final listInfo = <int>[];
@@ -23,7 +22,7 @@ Future<List<int>> buildInitialAlert(BuildContext context) async {
   return listInfo;
 }
 
-Future<void> showToast({@required String message}) async {
+Future<void> showToast(String message) async {
   await Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_LONG,

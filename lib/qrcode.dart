@@ -6,9 +6,15 @@ import 'package:qrscan/qrscan.dart' as scanner;
 import 'utils.dart';
 
 Future scan() async {
-  PermissionStatus p = await Permission.camera.request();
-  if (!p.isGranted || p.isDenied || p.isPermanentlyDenied || p.isRestricted) {
-    await showToast(message: "请授权摄像头访问权限");
+  Map<Permission, PermissionStatus> result = await [
+    Permission.camera,
+    Permission.storage,
+  ].request();
+  if (result[Permission.camera] == PermissionStatus.denied ||
+      result[Permission.storage] == PermissionStatus.denied ||
+      result[Permission.camera] == PermissionStatus.permanentlyDenied ||
+      result[Permission.storage] == PermissionStatus.permanentlyDenied) {
+    await showToast("请授权摄像头访问权限");
     await openAppSettings();
     return;
   }
@@ -19,11 +25,8 @@ Future scan() async {
 }
 
 void getScan(String scan) async {
-  if (scan == null) {
-    return;
-  }
-  if (!scan.contains("baize://")) {
-    await showToast(message: "错误的二维码！");
+  if (scan == null || !scan.contains("baize://")) {
+    await showToast("错误的二维码！");
     return;
   }
   // var url="http://baize.dev.builds.ninja/api/v1/Scan?scan="+scan;
@@ -31,5 +34,5 @@ void getScan(String scan) async {
   // var response = await dio.get(url);
   // var data = response.data.toString();
   // print(data);
-  await showToast(message: scan.replaceAll("baize://", ""));
+  await showToast(scan.replaceAll("baize://", ""));
 }

@@ -26,7 +26,7 @@ class _ReadCardPageState extends State<ReadCardPage> {
                 final message = await MifareNfcClassic.readBlock(
                   blockIndex: 0,
                 );
-                await showToast(message: message);
+                await showToast(message);
               },
               child: Text('点击读取设备'),
             ),
