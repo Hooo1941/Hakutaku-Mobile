@@ -17,7 +17,10 @@ class LoginPage extends StatelessWidget {
           if (token == null || token == '') return;
 
           var info = await getUserInfo(token);
-          if (info['code'] != 0) return;
+          if (info['code'] != 0) {
+            await secureStorage.delete(key: 'token');
+            return;
+          }
 
           userJwtToken = token;
           secureStorage.write(key: 'token', value: token);
