@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mifare_nfc_classic/mifare_nfc_classic.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-const String FrontendURL = "http://baize.dev.builds.ninja";
-const String BackendURL = "http://baize.dev.builds.ninja:7070";
-const String LoginURL = BackendURL + "/api/v1/sso/login";
+final secureStorage = new FlutterSecureStorage();
+String userJwtToken = '';
 
 Future<List<int>> buildInitialAlert(BuildContext context) async {
   final listInfo = <int>[];

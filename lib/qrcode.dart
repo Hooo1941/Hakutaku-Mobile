@@ -21,7 +21,6 @@ Future scan() async {
 
   String qrcode = await scanner.scan();
   getScan(qrcode);
-  print(qrcode);
 }
 
 void getScan(String scan) async {
