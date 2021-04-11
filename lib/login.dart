@@ -21,7 +21,8 @@ class LoginPage extends StatelessWidget {
         navigationDelegate: (NavigationRequest request) {
           // 拦截请求
           if (request.url.contains('manage')) {
-            showToast(message: request.url.replaceFirst(frontURL+"/manage/#/", ""));
+            showToast(
+                message: request.url.replaceFirst(frontURL + "/manage/#/", ""));
             Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
               return ManagePage();
             }));

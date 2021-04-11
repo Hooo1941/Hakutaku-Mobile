@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'qrcode.dart';
 import 'readcard.dart';
 import 'borrow.dart';
+
 class ManagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,10 +29,7 @@ class ManagePage extends StatelessWidget {
                 );
               },
             ),
-            ElevatedButton(
-                child: Text('扫码'),
-                onPressed: scan
-            ),
+            ElevatedButton(child: Text('扫码'), onPressed: scan),
           ],
         ),
       ),

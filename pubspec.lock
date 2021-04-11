@@ -85,7 +85,7 @@ packages:
       name: fluttertoast
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
     source: hosted
-    version: "7.1.8"
+    version: "8.0.3"
   js:
     dependency: transitive
     description:
@@ -134,7 +134,7 @@ packages:
       name: qrscan
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
     source: hosted
-    version: "0.2.22"
+    version: "0.3.1"
   rflutter_alert:
     dependency: "direct main"
     description:
