@@ -1,32 +1,27 @@
 //import 'package:flutter/material.dart';
 //import 'package:dio/dio.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+
 import 'utils.dart';
 
-// class ScanPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("扫码"),
-//       ),
-//       body:Center(
-//         child: ElevatedButton(
-//           onPressed: scan,
-//           child: Text("扫一扫"),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 Future scan() async {
-  String cameraScanResult = await scanner.scan();
-  getScan(cameraScanResult);
-  print(cameraScanResult);
+  PermissionStatus p = await Permission.camera.request();
+  if (!p.isGranted || p.isDenied || p.isPermanentlyDenied || p.isRestricted) {
+    await showToast(message: "请授权摄像头访问权限");
+    await openAppSettings();
+    return;
+  }
+
+  String qrcode = await scanner.scan();
+  getScan(qrcode);
+  print(qrcode);
 }
 
 void getScan(String scan) async {
+  if (scan == null) {
+    return;
+  }
   if (!scan.contains("baize://")) {
     await showToast(message: "错误的二维码！");
     return;
