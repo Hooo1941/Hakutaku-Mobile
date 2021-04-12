@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'borrow.dart';
 import 'login.dart';
 import 'manage.dart';
+import 'qrcode.dart';
 import 'readCard.dart';
-import 'borrow.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,7 @@ class _IndexState extends State<Index> {
         '/manage': (context) => ManagePage(),
         '/readCard': (context) => ReadCardPage(),
         '/borrow': (context) => BorrowPage(),
+        '/scan': (context) => ScanPage(),
       },
       initialRoute: '/login',
     );

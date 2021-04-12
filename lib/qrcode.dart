@@ -1,11 +1,11 @@
-//import 'package:flutter/material.dart';
-//import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
+import 'api.dart';
 import 'utils.dart';
 
-Future scan() async {
+Future<void> scan(BuildContext context) async {
   Map<Permission, PermissionStatus> result = await [
     Permission.camera,
     Permission.storage,
@@ -20,18 +20,45 @@ Future scan() async {
   }
 
   String qrcode = await scanner.scan();
-  getScan(qrcode);
-}
 
-void getScan(String scan) async {
-  if (scan == null || !scan.contains("baize://")) {
+  if (qrcode == null || !qrcode.contains("hakutaku://")) {
     await showToast("错误的二维码！");
     return;
   }
-  // var url="http://baize.dev.builds.ninja/api/v1/Scan?scan="+scan;
-  // var dio = Dio();
-  // var response = await dio.get(url);
-  // var data = response.data.toString();
-  // print(data);
-  await showToast(scan.replaceAll("baize://", ""));
+
+  Navigator.pushNamed(context, '/scan',
+      arguments: qrcode.replaceAll('hakutaku://', ''));
+}
+
+class ScanPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final String token = ModalRoute.of(context).settings.arguments as String;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('扫码登录'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text('借出设备确认'),
+            ElevatedButton(
+                onPressed: () async {
+                  Map<String, dynamic> resp = await passLoginToken(token);
+                  if (resp['code'] != 0)
+                    await showToast(resp['body']);
+                  else
+                    await showToast('登录成功');
+                },
+                child: Text('确认登录')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('取消'))
+          ],
+        ),
+      ),
+    );
+  }
 }

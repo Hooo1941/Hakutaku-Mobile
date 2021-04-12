@@ -25,7 +25,11 @@ class ManagePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/borrow');
               },
             ),
-            ElevatedButton(child: Text('扫码'), onPressed: scan),
+            ElevatedButton(
+                child: Text('扫码'),
+                onPressed: () async {
+                  await scan(context);
+                }),
           ],
         ),
       ),
