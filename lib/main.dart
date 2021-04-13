@@ -5,6 +5,7 @@ import 'login.dart';
 import 'manage.dart';
 import 'qrcode.dart';
 import 'readCard.dart';
+import 'showCode.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,6 +34,7 @@ class _IndexState extends State<Index> {
         '/readCard': (context) => ReadCardPage(),
         '/borrow': (context) => BorrowPage(),
         '/scan': (context) => ScanPage(),
+        '/code': (context) => CodePage(),
       },
       initialRoute: '/login',
     );

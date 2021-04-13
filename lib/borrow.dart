@@ -1,64 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_verification_box/verification_box.dart';
 
+import 'api.dart';
 import 'utils.dart';
-//import 'package:dio/dio.dart';
 
-String _bID;
-String _time;
+String returnTime;
 
 class BorrowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    returnTime = DateTime.now().add(const Duration(days: 1)).toString();
     return Scaffold(
         appBar: AppBar(
           title: const Text('借入设备'),
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
-                decoration: InputDecoration(labelText: "请输入借取码："),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                maxLength: 4,
-                onChanged: (value) {
-                  _bID = value;
-                },
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Text('借入设备', style: TextStyle(fontSize: 25)),
               ),
-              TextButton(
-                  onPressed: () {
-                    DatePicker.showDateTimePicker(context,
-                        showTitleActions: true, onConfirm: (time) {
-                      showToast(time.toString());
-                      _time = time.toString();
-                    }, currentTime: DateTime.now(), locale: LocaleType.zh);
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextButton(
+                    onPressed: () {
+                      DatePicker.showDateTimePicker(context,
+                          showTitleActions: true, onConfirm: (time) {
+                        showToast(time.toString());
+                        returnTime = time.toString();
+                      }, currentTime: DateTime.now(), locale: LocaleType.zh);
+                    },
+                    child:
+                        Text('选择归还时间', style: TextStyle(color: Colors.blue))),
+              ),
+              Container(
+                height: 45,
+                child: VerificationBox(
+                  count: 6,
+                  focusBorderColor: Colors.lightBlue,
+                  textStyle: TextStyle(color: Colors.lightBlue),
+                  showCursor: true,
+                  onSubmitted: (value) async {
+                    Map<String, dynamic> resp =
+                        await doBorrow(value, returnTime);
+                    if (resp == null)
+                      await showToast('网络错误');
+                    else if (resp['code'] != 0)
+                      await showToast(resp['msg']);
+                    else
+                      await showToast('成功');
+                    Navigator.pop(context);
                   },
-                  child: Text(
-                    '选择归还时间',
-                    style: TextStyle(color: Colors.blue),
-                  )),
-              ElevatedButton(child: Text('提交'), onPressed: submit),
+                ),
+              )
             ],
           ),
         ));
   }
-}
-
-void submit() async {
-  // var url="http://baize.dev.builds.ninja/api/v1/borrow/borrow";
-  // var dio = Dio();
-  // var response = await dio.get(url);
-  // var data = response.data.toString();
-  // print(data);
-  // format: "yyyy-mm-dd hh:mm:ss.000"
-  if (_bID == "" || _time == "") {
-    showToast("请补全信息");
-    return;
-  }
-  showToast(_bID + _time);
 }
