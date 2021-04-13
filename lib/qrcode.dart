@@ -40,15 +40,17 @@ class ScanPage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('借出设备确认'),
             ElevatedButton(
                 onPressed: () async {
                   Map<String, dynamic> resp = await passLoginToken(token);
                   if (resp['code'] != 0)
-                    await showToast(resp['body']);
+                    await showToast(resp['msg']);
                   else
                     await showToast('登录成功');
+                  Navigator.pop(context);
                 },
                 child: Text('确认登录')),
             ElevatedButton(
