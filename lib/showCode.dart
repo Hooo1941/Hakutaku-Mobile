@@ -11,8 +11,10 @@ class CodePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(borrowCode, style: TextStyle(fontSize: 25)),
+            Text(borrowCode,
+                style: TextStyle(fontSize: 48, color: Colors.blue)),
           ],
         ),
       ),

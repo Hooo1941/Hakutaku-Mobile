@@ -10,7 +10,8 @@ String returnTime;
 class BorrowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    returnTime = DateTime.now().add(const Duration(days: 1)).toString();
+    returnTime =
+        DateTime.now().add(const Duration(days: 1)).toString().substring(0, 19);
     return Scaffold(
         appBar: AppBar(
           title: const Text('借入设备'),
@@ -28,8 +29,7 @@ class BorrowPage extends StatelessWidget {
                     onPressed: () {
                       DatePicker.showDateTimePicker(context,
                           showTitleActions: true, onConfirm: (time) {
-                        showToast(time.toString());
-                        returnTime = time.toString();
+                        returnTime = time.toString().substring(0, 19);
                       }, currentTime: DateTime.now(), locale: LocaleType.zh);
                     },
                     child:
